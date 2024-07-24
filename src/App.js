@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./Pages//Header";
+import { UserProvider } from "./Pages/UserContext";
+import Login from "./Pages/Auth/Login";
+import Register from "./Pages/Auth/Register";
 
-function App() {
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserPage from "./Pages/UserPage";
+import AdminPage from "./Pages/AdminPage";
+import PostManager from "./Pages/PostManage";
+import Home from "./Pages/Home";
+import PostDetail from "./Pages/PostDetail";
+import Footer from "./Pages/Footer";
+import AdminEditUser from "./Pages/AdminEditUser";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/user" element={<UserPage />} />
+          <Route path="/view/:id" element={<PostDetail />} />
+          <Route path="/editUser/:id" element={<AdminEditUser />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </UserProvider>
   );
-}
+};
 
 export default App;
