@@ -2,6 +2,7 @@ package com.TrungTinhFullStack.blog_backend_http.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;

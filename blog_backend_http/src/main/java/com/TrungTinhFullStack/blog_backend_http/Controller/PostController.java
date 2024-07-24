@@ -1,6 +1,7 @@
 package com.TrungTinhFullStack.blog_backend_http.Controller;
 
 import com.TrungTinhFullStack.blog_backend_http.Entity.Post;
+import com.TrungTinhFullStack.blog_backend_http.Repository.PostRepository;
 import com.TrungTinhFullStack.blog_backend_http.Service.PostService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @PostMapping
     public ResponseEntity<?> createPost(@RequestBody Post post) {
@@ -69,9 +73,14 @@ public class PostController {
     @GetMapping("/search/{name}")
     public ResponseEntity<?> searchByName(@PathVariable String name) {
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(postService.searchByName(name));
+            return ResponseEntity.status(HttpStatus.OK).body(postRepository.findByNameContaining(name));
         }catch(Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/newPost")
+    public List <Post> findLast3Posts() {
+        return postRepository.findLast3Posts();
     }
 }

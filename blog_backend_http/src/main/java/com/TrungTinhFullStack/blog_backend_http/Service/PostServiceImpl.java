@@ -71,4 +71,5 @@ public class PostServiceImpl implements PostService{
     public Post findById(Long postId) {
         return postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found"));
     }
+
 }
